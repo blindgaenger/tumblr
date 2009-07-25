@@ -30,16 +30,27 @@
 
     <style type="text/css">
       body {
-        margin:       0px;
-        background-color: {color:Background};
-        font-family:    'Lucida Grande', Helvetica, sans-serif;
+        -moz-background-clip: border;
+        -moz-background-inline-policy: continuous;
+        -moz-background-origin: padding;
+        background: {color:Background} url(http://blindgaenger.github.com/images/background.png) repeat scroll 0 0;
+        font-family: "Lucida Grande","Lucida Sans Unicode",Helvetica,Arial,sans-serif;
+        margin: 0px;
       }
-      
+
+      #backlight {
+        -moz-background-clip: border;
+        -moz-background-inline-policy: continuous;
+        -moz-background-origin: padding;
+        background: transparent url(http://blindgaenger.github.com/images/backlight.png) no-repeat scroll center -400px;
+        width: 100%;
+        height: 700px;
+      }
+
       #content {
         width:      420px;
         margin:       auto;
         padding:      15px;
-        background-color: {color:Content Background};
         position:     relative;
       }
 
@@ -283,121 +294,123 @@
     <![endif]-->
   </head>
   <body>
-    <div id="content">
-      <h1><a href="/">{Title}</a></h1>
+    <div id="backlight">
+      <div id="content">
+        <h1><a href="/">{Title}</a></h1>
 
-      <div id="description">
-        <div>
-          <div id="search">
-            <form action="/search" method="get">
-              <input type="text" name="q" value="{SearchQuery}"/>
-              <input type="submit" value="Search"/>
-            </form>
+        <div id="description">
+          <div>
+            <div id="search">
+              <form action="/search" method="get">
+                <input type="text" name="q" value="{SearchQuery}"/>
+                <input type="submit" value="Search"/>
+              </form>
+            </div>
+    
+             {Description}
+            <p id="nav_container">
+              <a href="/archive" id="archive_link">Archive</a>
+              <span class="dim">/</span>
+              <a href="{RSS}">RSS</a>
+            </p>
           </div>
-  
-           {Description}
-          <p id="nav_container">
-            <a href="/archive" id="archive_link">Archive</a>
-            <span class="dim">/</span>
-            <a href="{RSS}">RSS</a>
-          </p>
         </div>
-      </div>
-      
-      {block:SearchPage}
-      <div id="searchresultcount">
-        <p>Your search for <span class="query">{SearchQuery}</span> returned {SearchResultCount} result(s).</p>
-      </div>
-      {/block:SearchPage}
-
-      {block:Posts}
-        <div class="post">
-          <div class="labels">
-            {block:NewDayDate}
-              <div class="date"><a href="{Permalink}">{Month} {DayOfMonth}</a></div>
-            {/block:NewDayDate}
-          
-            {block:SameDayDate}
-              <div class="date"><a href="{Permalink}">+</a></div>
-            {/block:SameDayDate}
-          </div>
-
-          {block:Regular}
-            <div class="regular">
-              {block:Title}<h2><a href="{Permalink}">{Title}</a></h2>{/block:Title}
-              {Body}
-            </div>
-          {/block:Regular}
-          
-          {block:Photo}
-            <div class="photo">
-              {LinkOpenTag}<img src="{PhotoURL-400}" alt="{PhotoAlt}"/>{LinkCloseTag}
-              {block:Caption}
-                <div class="caption">{Caption}</div>
-              {/block:Caption}
-            </div>
-          {/block:Photo}
-          
-          {block:Quote}
-            <div class="quote">
-              <span class="quote">
-                <big class="quote">&#147;</big> {Quote}
-              </span>
-              {block:Source}<span class="source">{Source}</span>{/block:Source}
-            </div>
-          {/block:Quote}
-          
-          {block:Link}
-            <div class="link">
-              <a href="{URL}" class="link" {Target}>{Name}</a>
-              {block:Description}
-                <span class="description">{Description}</span>
-              {/block:Description}
-            </div>
-          {/block:Link}
-          
-          {block:Conversation}
-            <div class="conversation">
-              {block:Title}<h2><a href="{Permalink}">{Title}</a></h2>{/block:Title}
-              <ul>
-                {block:Lines}
-                  <li>
-                    {block:Label}<span class="label">{Label}</span>{/block:Label}
-                    {Line}
-                  </li>
-                {/block:Lines}
-              </ul>
-            </div>
-          {/block:Conversation}
-          
-          {block:Audio}
-            <div class="audio">
-              {AudioPlayerGrey}
-              {block:Caption}
-                <div class="caption">{Caption}</div>
-              {/block:Caption}
-            </div>
-          {/block:Audio}
-          
-          {block:Video}
-            <div class="video">
-              {Video-400}
-              {block:Caption}
-                <div class="caption">{Caption}</div>
-              {/block:Caption}
-            </div>
-          {/block:Video}
-        </div>
-      {/block:Posts}
-
-      <div id="footer">
-        {block:PreviousPage}
-          <a href="{PreviousPage}">&#171; Previous</a> &nbsp;&nbsp;
-        {/block:PreviousPage}
         
-        {block:NextPage}
-          <a href="{NextPage}">Next &#187;</a>
-        {/block:NextPage}
+        {block:SearchPage}
+        <div id="searchresultcount">
+          <p>Your search for <span class="query">{SearchQuery}</span> returned {SearchResultCount} result(s).</p>
+        </div>
+        {/block:SearchPage}
+
+        {block:Posts}
+          <div class="post">
+            <div class="labels">
+              {block:NewDayDate}
+                <div class="date"><a href="{Permalink}">{Month} {DayOfMonth}</a></div>
+              {/block:NewDayDate}
+            
+              {block:SameDayDate}
+                <div class="date"><a href="{Permalink}">+</a></div>
+              {/block:SameDayDate}
+            </div>
+
+            {block:Regular}
+              <div class="regular">
+                {block:Title}<h2><a href="{Permalink}">{Title}</a></h2>{/block:Title}
+                {Body}
+              </div>
+            {/block:Regular}
+            
+            {block:Photo}
+              <div class="photo">
+                {LinkOpenTag}<img src="{PhotoURL-400}" alt="{PhotoAlt}"/>{LinkCloseTag}
+                {block:Caption}
+                  <div class="caption">{Caption}</div>
+                {/block:Caption}
+              </div>
+            {/block:Photo}
+            
+            {block:Quote}
+              <div class="quote">
+                <span class="quote">
+                  <big class="quote">&#147;</big> {Quote}
+                </span>
+                {block:Source}<span class="source">{Source}</span>{/block:Source}
+              </div>
+            {/block:Quote}
+            
+            {block:Link}
+              <div class="link">
+                <a href="{URL}" class="link" {Target}>{Name}</a>
+                {block:Description}
+                  <span class="description">{Description}</span>
+                {/block:Description}
+              </div>
+            {/block:Link}
+            
+            {block:Conversation}
+              <div class="conversation">
+                {block:Title}<h2><a href="{Permalink}">{Title}</a></h2>{/block:Title}
+                <ul>
+                  {block:Lines}
+                    <li>
+                      {block:Label}<span class="label">{Label}</span>{/block:Label}
+                      {Line}
+                    </li>
+                  {/block:Lines}
+                </ul>
+              </div>
+            {/block:Conversation}
+            
+            {block:Audio}
+              <div class="audio">
+                {AudioPlayerGrey}
+                {block:Caption}
+                  <div class="caption">{Caption}</div>
+                {/block:Caption}
+              </div>
+            {/block:Audio}
+            
+            {block:Video}
+              <div class="video">
+                {Video-400}
+                {block:Caption}
+                  <div class="caption">{Caption}</div>
+                {/block:Caption}
+              </div>
+            {/block:Video}
+          </div>
+        {/block:Posts}
+
+        <div id="footer">
+          {block:PreviousPage}
+            <a href="{PreviousPage}">&#171; Previous</a> &nbsp;&nbsp;
+          {/block:PreviousPage}
+          
+          {block:NextPage}
+            <a href="{NextPage}">Next &#187;</a>
+          {/block:NextPage}
+        </div>
       </div>
     </div>
 
